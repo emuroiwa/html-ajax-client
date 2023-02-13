@@ -1,2 +1,5 @@
+# Setup
+run 
 npx http-server
-npx http-server --cors
+
+and go to the url allocated 
