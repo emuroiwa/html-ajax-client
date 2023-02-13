@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <h1>Create Invoice</h1>
+    <hr>
+    <h4>Customer Details</h4>
+    <form id="create-invoice-form">
+        <div>
+            <div><label for="name">Name:</label></div>
+            <div><input type="text" id="name" name="name"></div>
+        </div>
+        <div>
+            <div><label for="surname">Surname:</label></div>
+            <div><input type="text" id="surname" name="surname"></div>
+        </div>
+        <div>
+            <div><label for="company">Company:</label></div>
+            <div><input type="text" id="company" name="company"></div>
+        </div>
+        <div>
+            <div><label for="street_address">Street Address:</label></div>
+            <div><input type="text" id="street_address" name="street_address"></div>
+        </div>
+        <div>
+            <div><label for="city">City:</label></div>
+            <div><input type="text" id="city" name="city"></div>
+        </div>
+        <div>
+            <div><label for="state">State:</label></div>
+            <div><input type="text" id="state" name="state"></div>
+        </div>
+        <div>
+            <div><label for="phone">Phone:</label></div>
+            <div><input type="number" id="phone" name="phone"></div>
+        </div>
+
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+    <div id="response"></div>
+
+    <script>
+      $("#create-invoice-form").submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+          type: "POST",
+          url: "http://localhost:3000/customer",
+          contentType: "application/json",
+            data: JSON.stringify({
+                name: $("#name").val(),
+                surname: $("#surname").val(),
+                company: $("#company").val(),
+                street_address: $("#street_address").val(),
+                city: $("#city").val(),
+                state: $("#state").val(),
+                phone: $("#phone").val()
+            }),
+            withCredentials: true,
+          success: function(response) {
+            $("#response").html("User created successfully!");
+          },
+          error: function(error) {
+            $("#response").html("An error occurred: " + error);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
